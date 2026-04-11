@@ -23,7 +23,14 @@ export default function Home() {
         >
           GACHA WORLD
         </motion.h1>
-
+        <motion.h2
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="text-sm sm:text-base md:text-lg font-medium tracking-[0.25em] uppercase text-zinc-500"
+        >
+          NOW STREAMING
+        </motion.h2>
         {/* ALBUM ART */}
         <motion.div
           initial={{ opacity: 0, scale: 0.97 }}
@@ -57,14 +64,30 @@ export default function Home() {
           {[
             {
               src: "/spotify-fill-svgrepo-com.svg",
-              href: "#",
+              href: "https://open.spotify.com/album/1OpjQGUCohKL8MffC9Ho1j",
               size: 30,
               tweak: "-translate-y-[2px]",
             },
-            { src: "/apple-music-svgrepo-com.svg", href: "#", size: 26 },
-            { src: "/instagram-fill-svgrepo-com.svg", href: "#", size: 28 },
-            { src: "/youtube-fill-svgrepo-com.svg", href: "#", size: 28 },
-            { src: "/tiktok-fill-svgrepo-com.svg", href: "#", size: 28 },
+            {
+              src: "/apple-music-svgrepo-com.svg",
+              href: "https://music.apple.com/us/album/gacha-world-ep/1880477025",
+              size: 26,
+            },
+            {
+              src: "/instagram-fill-svgrepo-com.svg",
+              href: "https://www.instagram.com/aryyzona/",
+              size: 28,
+            },
+            {
+              src: "/youtube-fill-svgrepo-com.svg",
+              href: "https://www.youtube.com/@aryy",
+              size: 28,
+            },
+            {
+              src: "/tiktok-fill-svgrepo-com.svg",
+              href: "https://www.tiktok.com/@aryyzona",
+              size: 28,
+            },
           ].map((icon, i) => (
             <a key={i} href={icon.href} target="_blank">
               <Image

@@ -19,18 +19,43 @@ export default function CharCreator() {
     setter((prev: number) => (prev - 1 + total) % total);
 
   const downloadImage = async () => {
+    const width = 300;
+    const height = 380;
+
     const canvas = document.createElement("canvas");
     const ctx = canvas.getContext("2d");
+    if (!ctx) return;
 
-    canvas.width = 340;
-    canvas.height = 420;
+    canvas.width = width;
+    canvas.height = height;
 
     const load = (src: string) =>
-      new Promise<HTMLImageElement>((res) => {
+      new Promise<HTMLImageElement>((res, rej) => {
         const img = new Image();
         img.src = src;
         img.onload = () => res(img);
+        img.onerror = () => rej(new Error(`Failed to load ${src}`));
       });
+
+    const drawContain = (img: HTMLImageElement) => {
+      const scale = Math.min(width / img.width, height / img.height);
+      const drawW = img.width * scale;
+      const drawH = img.height * scale;
+      const x = (width - drawW) / 2;
+      const y = (height - drawH) / 2;
+
+      ctx.drawImage(img, x, y, drawW, drawH);
+    };
+
+    const drawCover = (img: HTMLImageElement) => {
+      const scale = Math.max(width / img.width, height / img.height);
+      const drawW = img.width * scale;
+      const drawH = img.height * scale;
+      const x = (width - drawW) / 2;
+      const y = (height - drawH) / 2;
+
+      ctx.drawImage(img, x, y, drawW, drawH);
+    };
 
     const base = await load(`/avatar/base-${backgroundIndex}.png`);
     const body = await load("/avatar/body.png");
@@ -38,15 +63,18 @@ export default function CharCreator() {
     const hair = await load(`/avatar/hair-${hairIndex}.png`);
     const wings = wingsEnabled ? await load("/avatar/wings.png") : null;
 
-    ctx?.drawImage(base, 0, 0);
-    if (wings) ctx?.drawImage(wings, 0, 0);
-    ctx?.drawImage(body, 0, 0);
-    ctx?.drawImage(outfit, 0, 0);
-    ctx?.drawImage(hair, 0, 0);
+    ctx.clearRect(0, 0, width, height);
+
+    drawCover(base);
+
+    if (wings) drawContain(wings);
+    drawContain(body);
+    drawContain(outfit);
+    drawContain(hair);
 
     const link = document.createElement("a");
     link.download = "gacha-avatar.png";
-    link.href = canvas.toDataURL();
+    link.href = canvas.toDataURL("image/png");
     link.click();
   };
 
