@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { motion } from "framer-motion";
 import CharCreator from "../char-creator";
+import Link from "next/link";
 
 export default function Home() {
   return (
@@ -104,6 +105,30 @@ export default function Home() {
               />
             </a>
           ))}
+        </motion.div>
+        <motion.div
+          initial={{ opacity: 0, y: 8 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.3 }}
+        >
+          <Link
+            href="/"
+            className="
+      mt-8 inline-flex items-center justify-center
+      rounded-full px-10 py-3
+      text-[11px] tracking-[0.25em] uppercase
+      text-white
+      bg-gradient-to-b from-zinc-700 to-black
+      shadow-[0_10px_30px_rgba(0,0,0,0.2)]
+      border border-zinc-800/60
+      transition-all duration-200 ease-out
+      hover:scale-[1.03]
+      hover:shadow-[0_14px_40px_rgba(0,0,0,0.25)]
+      active:scale-[0.98]
+    "
+          >
+            PLAY GAME
+          </Link>
         </motion.div>
         <CharCreator />
       </main>

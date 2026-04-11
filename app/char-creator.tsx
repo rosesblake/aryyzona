@@ -79,7 +79,7 @@ export default function CharCreator() {
   };
 
   return (
-    <div className="mt-20 flex flex-col items-center gap-8 px-6">
+    <div className="mt-2 flex flex-col items-center gap-8 px-6">
       <div className="flex flex-col items-center gap-2 text-center">
         <h2 className="text-2xl font-semibold tracking-tight text-zinc-800">
           Customize Your Pixelaryy
